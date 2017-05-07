@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Connect</string>
+    <string name="app_id">182421957137</string>
+    <integer name="google_play_services_version">8487000</integer>
+</resources>
