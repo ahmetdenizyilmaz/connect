@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameRoom implements Screen {
+    private  boolean soundonoff=true;
     private Rectangle recthome;
     private Rectangle rectads;
     private Rectangle rectagain;
@@ -40,6 +42,8 @@ public class GameRoom implements Screen {
     private int gamemode = 0;
     private PlayServices playServices;
     private float timebonus = 10f;
+    private Sound soundconnect;
+    private Sound soundsuccess;
 
     public GameRoom(Connect game, int stage) {
         this.game = game;
@@ -61,7 +65,9 @@ public class GameRoom implements Screen {
         Preferences savegame = Gdx.app.getPreferences("save.dat");
 
         musiconoff = savegame.getBoolean("musiconoff");
+        soundonoff=savegame.getBoolean("soundonoff");
         System.out.println("" + musiconoff);
+        System.out.println("" + soundonoff);
         if (musiconoff) {
             gamemusic.play();
             gamemusic.setLooping(true);
@@ -92,6 +98,8 @@ public class GameRoom implements Screen {
         rectagain = new Rectangle(240, 140, 175, 90);
         rectads = new Rectangle(550, 140, 175, 90);
         recthome = new Rectangle(425, 125, 115, 105);
+        soundconnect = Gdx.audio.newSound(Gdx.files.internal("connectsound.wav"));
+        soundsuccess = Gdx.audio.newSound(Gdx.files.internal("levelsucces.wav"));
     }
 
     public void lanit(int gamemode) {
@@ -106,7 +114,7 @@ public class GameRoom implements Screen {
             Organizer.locate(MathUtils.random(stage / 4 + 4, stage / 3 + 7), stage * 2 + 5, MathUtils.random(20000));
 
         }
-        ContainerController = new ContainerControl();
+        ContainerController = new ContainerControl(remaintime);
         ContainerController.containers.addAll(Organizer.assign());
         InputHandler inputProcessor = new InputHandler(ContainerController, camera);
         Gdx.input.setInputProcessor(inputProcessor);
@@ -126,13 +134,17 @@ public class GameRoom implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gamedrawer.batch.setProjectionMatrix(camera.combined);
         Gamedrawer.drawBackground();
-
+        ContainerController.remaintime=remaintime;
         if (Gdx.graphics.getFramesPerSecond() < 47 && Gamedrawer.sizesprite > 1f) {
             Gamedrawer.sizesprite -= 0.01f;
         } else if (Gdx.graphics.getFramesPerSecond() > 55 && Gamedrawer.sizesprite < 2f) {
             Gamedrawer.sizesprite += 0.01f;
         }
         if (ContainerController.changedlist) {
+            if(soundonoff && !ContainerController.isallzero )
+            {
+                soundconnect.play(0.2f);
+            }
             ContainerController.changedlist = false;
             Gamedrawer.updateContainers(ContainerController.containers, ContainerController.lines);
             // System.out.println("aha girdi");
@@ -249,6 +261,10 @@ public class GameRoom implements Screen {
 
                 }
                 if (ContainerController.isallzero) {
+                    if(soundonoff)
+                    {
+                        soundsuccess.play(0.3f);
+                    }
                     Gamedrawer.restarted = 0;
                     int currentduration = (int) ((System.currentTimeMillis() - time) / 1000f);
                     Preferences savegame = Gdx.app.getPreferences("save.dat");
@@ -422,7 +438,8 @@ public class GameRoom implements Screen {
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
-
+        soundconnect.dispose();
+        soundsuccess.dispose();
     }
 
 }

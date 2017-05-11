@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameDrawer {
     private Texture fingers;
-    private Texture  endtabletext;
+    private Texture endtabletext;
     private Texture endtable;
     public Array<Container> containers = new Array<Container>();
     public Array<Line> lines = new Array<Line>();
@@ -31,7 +31,7 @@ public class GameDrawer {
     Array<ParticleEffect> effects = new Array<ParticleEffect>();
     private Texture bg;
     public SpriteBatch batch;
-    public int restarted=0;
+    public int restarted = 0;
     public Sprite sprbg;
     public int a = 0;
     public float hue = 360;
@@ -60,8 +60,8 @@ public class GameDrawer {
     private Texture endtableendless;
     private int fingerx;
     private int fingery;
-    private float fingersize=0.8f;
-    private float fingersizechange=0.01f;
+    private float fingersize = 0.8f;
+    private float fingersizechange = 0.01f;
 
     public GameDrawer(Texture bg, Texture rect, Texture linesmall, Texture containert) {
         shapenumber = 5;
@@ -76,7 +76,7 @@ public class GameDrawer {
         pixel = new Texture(Gdx.files.internal("1pix.png"));
         endtable = new Texture(Gdx.files.internal("scoreback.png"));
         endtabletext = new Texture(Gdx.files.internal("scoreback2.png"));
-        nomoread= new Texture(Gdx.files.internal("nomoread.png"));
+        nomoread = new Texture(Gdx.files.internal("nomoread.png"));
         endtableendless = new Texture(Gdx.files.internal("scorebackendless.png"));
         fingers = new Texture(Gdx.files.internal("2fingers.png"));
         fingers.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -87,8 +87,8 @@ public class GameDrawer {
         batch = new SpriteBatch();
         this.bg = bg;
         this.linesmall = linesmall;
-        fingerx=MathUtils.random(150,810);
-        fingery=MathUtils.random(100,440);
+        fingerx = MathUtils.random(150, 810);
+        fingery = MathUtils.random(100, 440);
 
         for (int i = 0; i < effectquality; i++) {
             for (int j = 0; j < i * 2 + 3; j++) {
@@ -561,9 +561,6 @@ public class GameDrawer {
     }
 
 
-
-
-
     public int endScreen(int count, Music music, int a) {
 
         if (count > 60)
@@ -581,13 +578,13 @@ public class GameDrawer {
 
     public void drawEndTable() {
         if (quality2) {
-            batch.setColor(0f,0f,0f,0.9f);
+            batch.setColor(0f, 0f, 0f, 0.9f);
         } else {
-            batch.setColor(0f,0f,0f,0.9f);
+            batch.setColor(0f, 0f, 0f, 0.9f);
         }
         batch.begin();
 
-        batch.draw(endtable,230,120,500,300);//300,200
+        batch.draw(endtable, 230, 120, 500, 300);//300,200
         if (quality2) {
 
             batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
@@ -595,18 +592,19 @@ public class GameDrawer {
             batch.setColor(Color.WHITE);
         }
 
-        batch.draw(endtabletext,230,120);
+        batch.draw(endtabletext, 230, 120);
         batch.end();
     }
+
     public void drawEndTableEndless() {
         if (quality2) {
-            batch.setColor(0f,0f,0f,0.9f);
+            batch.setColor(0f, 0f, 0f, 0.9f);
         } else {
-            batch.setColor(0f,0f,0f,0.9f);
+            batch.setColor(0f, 0f, 0f, 0.9f);
         }
         batch.begin();
 
-        batch.draw(endtable,230,120,500,300);//300,200
+        batch.draw(endtable, 230, 120, 500, 300);//300,200
         if (quality2) {
 
             batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
@@ -614,11 +612,11 @@ public class GameDrawer {
             batch.setColor(Color.WHITE);
         }
 
-        batch.draw(endtableendless,230,120);
+        batch.draw(endtableendless, 230, 120);
         batch.end();
     }
-    public void drawNoMoreAds()
-    {
+
+    public void drawNoMoreAds() {
         batch.begin();
         if (quality2) {
 
@@ -626,29 +624,30 @@ public class GameDrawer {
         } else {
             batch.setColor(Color.WHITE);
         }
-        batch.draw(nomoread,550,140,175,90);
+        batch.draw(nomoread, 550, 140, 175, 90);
         batch.end();
     }
+
     public void draw2fingers() {
         batch.begin();
+
+        if (fingersize < 0.6 || fingersize > 1) {
+            fingersizechange *= -1;
+            if (fingersize > 1) {
+                fingerx = MathUtils.random(150, 810);
+                fingery = MathUtils.random(100, 440);
+            }
+        }
+        fingersize += fingersizechange;
         if (quality2) {
 
-            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
+            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 4f*(0.9f-fingersize)));
         } else {
             batch.setColor(Color.WHITE);
         }
-        if (fingersize<0.4||fingersize>0.8)
-        {
-            fingersizechange*=-1;
-            if(fingersize>0.8)
-            {
-                fingerx=MathUtils.random(150,810);
-                fingery=MathUtils.random(100,440);
-            }
+        if (fingersize < 0.8) {
+            batch.draw(fingers, fingerx - fingersize * 50f, fingery - fingersize * 89f, fingersize * 99f, fingersize * 177f);
         }
-        fingersize+=fingersizechange;
-
-        batch.draw(fingers,fingerx-fingersize*50f,fingery-fingersize*89f,fingersize*99f,fingersize*177f);
         batch.end();
     }
 

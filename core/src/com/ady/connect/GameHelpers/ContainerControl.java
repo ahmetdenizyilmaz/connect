@@ -21,36 +21,41 @@ public class ContainerControl {
 	public int score=0;
 	public float scorebank=0f;
 	public float scorefake=0f;
-	public ContainerControl() {
+	public float remaintime=0f;
+
+	public ContainerControl(float remaintime) {
 		changedlist = true;
 		isallzero = false;
+		this.remaintime=remaintime;
 
 	}
 
 	public boolean triggeredContainer(Vector2 pos, int event) {
-		// System.out.println("asdasdasdasd");
-		for (int i = 0; i < containers.size; i++) {
-			// System.out.println("a" + i);
-			float r = containers.get(i).radius + 30f;
-			if (containers.get(i).pos.dst2(pos) <= r * r) {
-				if (containers.get(i).getValue() > 0) {
-					if (event == 0) {
-						clickProcess(i);
-					} else if (event == 1) {
-						if (releasedProcess(i)) {
-							changedlist = true;
-							// System.out.println("ayn?de?il");
+		if(remaintime>0) {
+			// System.out.println("asdasdasdasd");
+			for (int i = 0; i < containers.size; i++) {
+				// System.out.println("a" + i);
+				float r = containers.get(i).radius + 30f;
+				if (containers.get(i).pos.dst2(pos) <= r * r) {
+					if (containers.get(i).getValue() > 0) {
+						if (event == 0) {
+							clickProcess(i);
+						} else if (event == 1) {
+							if (releasedProcess(i)) {
+								changedlist = true;
+								// System.out.println("ayn?de?il");
+							}
+
 						}
-
+						return true;
 					}
-					return true;
+				} else {
+					if (event == 0) {
+						clickProcess(-1);
+					}
 				}
-			} else {
-				if (event == 0) {
-					clickProcess(-1);
-				}
-			}
 
+			}
 		}
 		return false;
 

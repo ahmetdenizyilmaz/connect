@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -68,6 +69,7 @@ public class MainMenuScreen implements Screen {
     public boolean soundonoff = true;
     public boolean musiconoff = true;
     private Texture leaderboard;
+    private Sound soundchange;
 
     public String[][] getStrings() {
 
@@ -203,7 +205,7 @@ public class MainMenuScreen implements Screen {
         soundoff = new Texture(Gdx.files.internal("soundoff.png"));
         soundon.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         soundoff.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
+        soundchange = Gdx.audio.newSound(Gdx.files.internal("changemode.mp3"));
         musicon = new Texture(Gdx.files.internal("musicon.png"));
         musicoff = new Texture(Gdx.files.internal("musicoff.png"));
         musicon.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -247,6 +249,10 @@ public class MainMenuScreen implements Screen {
         musiconoff = savegame.getBoolean("musiconoff", true);
         quality = savegame.getBoolean("quality", true);
         quality2 = savegame.getBoolean("quality2", true);
+        if (rushtimes == 0 && infinitetimes == 0) {
+            savegame.putBoolean("soundonoff", true);
+            savegame.putBoolean("musiconoff", true);
+        }
         menumusic = Gdx.audio.newMusic(Gdx.files.internal("menumusic.mp3"));
         if (musiconoff) {
             menumusic.play();
@@ -540,6 +546,9 @@ public class MainMenuScreen implements Screen {
 
             System.out.println(pos.x + "-" + (pos.y));
             if (rect.contains(pos.x, pos.y)) {
+                if (soundonoff) {
+                    soundchange.play(0.6f);
+                }
                 Gamedrawer.hue += 340;
                 rotationicon += 2;
                 alphabrain = 0.1f;
@@ -547,6 +556,9 @@ public class MainMenuScreen implements Screen {
                 stringchange = 0;
                 showplay = -0.5f;
             } else if (rect2.contains(pos.x, pos.y)) {
+                if (soundonoff) {
+                    soundchange.play(0.6f);
+                }
                 Gamedrawer.hue += 20;
                 rotationicon += 1;
                 alphabrain = 0.1f;
@@ -603,7 +615,7 @@ public class MainMenuScreen implements Screen {
                 savegame.flush();
                 dispose();
                 Gamedrawer.speed = 1f;
-                game.setScreen(new GameRoom(this.game, 0, Gamedrawer, gamemusic, 60, 5f, 0, playServices));
+                game.setScreen(new GameRoom(this.game, 0, Gamedrawer, gamemusic, 60, 15f, 0, playServices));
 
             }
             countup = Gamedrawer.endScreen(countup, menumusic, 1);
