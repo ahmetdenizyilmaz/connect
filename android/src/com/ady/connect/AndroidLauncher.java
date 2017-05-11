@@ -255,27 +255,7 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices,
 
     @Override
     public void showRewardedVideo() {
-       /* runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (then != null) {
-                    rewardedVideoAd.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            Gdx.app.postRunnable(then);
-                            requestNewInterstitial();
-                        }
-                    });
-                }
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
-                } else {
-                    requestNewInterstitial();
-                }
-            }
-        });
 
-*/
 
         runOnUiThread(new Runnable() {
             @Override public void run() {

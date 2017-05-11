@@ -16,8 +16,6 @@
 
 package com.google.example.games.basegameutils;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,7 +29,6 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.Api.ApiOptions.NoOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 import com.google.android.gms.games.Games;
@@ -43,6 +40,8 @@ import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.request.GameRequest;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.Plus.PlusOptions;
+
+import java.util.ArrayList;
 
 public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -148,7 +147,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
     SignInFailureReason mSignInFailureReason = null;
 
     // Should we show error dialog boxes?
-    boolean mShowErrorDialogs = true;
+    boolean mShowErrorDialogs = false;
 
     // Print debug logs?
     boolean mDebugLog = false;
@@ -265,7 +264,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         }
 
         GoogleApiClient.Builder builder = new GoogleApiClient.Builder(
-                mActivity, this, this);
+                mActivity, this, this).useDefaultAccount();
 
         if (0 != (mRequestedClients & CLIENT_GAMES)) {
             builder.addApi(Games.API, mGamesApiOptions);
@@ -525,7 +524,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         // then disconnecting
         if (0 != (mRequestedClients & CLIENT_PLUS)) {
             debugLog("Clearing default account on PlusClient.");
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            //Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
         }
 
         // For the games client, signing out means calling signOut and

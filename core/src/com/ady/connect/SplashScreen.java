@@ -20,10 +20,11 @@ public class SplashScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Texture ady;
-    private float time=0f;
+    private float time = 0f;
     private Texture pix;
     private PlayServices ply;
     private Connect game;
+    private boolean signattemp = false;
 
     public SplashScreen(Connect game, PlayServices ply) {
         this.game = game;
@@ -35,7 +36,7 @@ public class SplashScreen implements Screen {
         camera = new OrthographicCamera(960f, 540f);
         camera.setToOrtho(false, 960f, 540f);
         camera.update();
-        batch= new SpriteBatch();
+        batch = new SpriteBatch();
         ady = new Texture(Gdx.files.internal("adylogo.png"));
         pix = new Texture(Gdx.files.internal("1pix.png"));
         ady.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -47,26 +48,30 @@ public class SplashScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT
                 | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
         batch.setProjectionMatrix(camera.combined);
-        time+=Gdx.graphics.getDeltaTime();
-        batch.setColor(1, 1, 1, MathUtils.clamp((time-1.5f) / 1f, 0f,1f));
+        time += Gdx.graphics.getDeltaTime();
+        batch.setColor(1, 1, 1, MathUtils.clamp((time - 1.5f) / 1f, 0f, 1f));
         batch.begin();
-        batch.draw(ady,405,270,150,150);
+        batch.draw(ady, 405, 270, 150, 150);
         batch.end();
 
-        batch.setColor(0, 0, 0, MathUtils.clamp(time-7f, 0f,1f));
+        batch.setColor(0, 0, 0, MathUtils.clamp(time - 7f, 0f, 1f));
         batch.begin();
-        batch.draw(pix,0,0,960,540);
+        batch.draw(pix, 0, 0, 960, 540);
         batch.end();
-        if(isInternetAvailable())
-        {
-            System.out.println("Thereisaninternet");
-            ply.signIn();
+        if (isInternetAvailable()) {
+            if (!ply.isSignedIn()) {
+                System.out.println("Thereisaninternet");
+                if (!signattemp) {
+                    signattemp = true;
+                    ply.signIn();
+                }
+            }
         }
-        if(time>8.5f)
-        {
-            game.setScreen(new MainMenuScreen(game,ply));
+        if (time > 8.5f) {
+            game.setScreen(new MainMenuScreen(game, ply));
         }
     }
+
     public boolean isInternetAvailable() {
         try {
             final InetAddress address;
@@ -76,6 +81,7 @@ public class SplashScreen implements Screen {
         }
         return false;
     }
+
     @Override
     public void resize(int width, int height) {
 

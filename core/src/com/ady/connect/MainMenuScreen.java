@@ -474,7 +474,7 @@ public class MainMenuScreen implements Screen {
         }
         if (Gdx.input.isKeyPressed(Keys.BACK)) {
 
-            playServices.signOut();
+            //playServices.signOut();
 
             Gdx.app.exit();
         }
@@ -603,7 +603,7 @@ public class MainMenuScreen implements Screen {
                 savegame.flush();
                 dispose();
                 Gamedrawer.speed = 1f;
-                game.setScreen(new GameRoom(this.game, 0, Gamedrawer, gamemusic, 60, 20f, 0, playServices));
+                game.setScreen(new GameRoom(this.game, 0, Gamedrawer, gamemusic, 60, 5f, 0, playServices));
 
             }
             countup = Gamedrawer.endScreen(countup, menumusic, 1);

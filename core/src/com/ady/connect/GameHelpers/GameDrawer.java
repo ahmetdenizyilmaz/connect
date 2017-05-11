@@ -21,6 +21,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class GameDrawer {
+    private Texture fingers;
+    private Texture  endtabletext;
+    private Texture endtable;
     public Array<Container> containers = new Array<Container>();
     public Array<Line> lines = new Array<Line>();
     public Array<Vector2> posdrags = new Array<Vector2>();
@@ -28,6 +31,7 @@ public class GameDrawer {
     Array<ParticleEffect> effects = new Array<ParticleEffect>();
     private Texture bg;
     public SpriteBatch batch;
+    public int restarted=0;
     public Sprite sprbg;
     public int a = 0;
     public float hue = 360;
@@ -52,6 +56,12 @@ public class GameDrawer {
     private BitmapFont fontscore;
     private float backfontalpha = 0f;
     private float scoreslip = 0f;
+    private Texture nomoread;
+    private Texture endtableendless;
+    private int fingerx;
+    private int fingery;
+    private float fingersize=0.8f;
+    private float fingersizechange=0.01f;
 
     public GameDrawer(Texture bg, Texture rect, Texture linesmall, Texture containert) {
         shapenumber = 5;
@@ -64,10 +74,21 @@ public class GameDrawer {
         fontscore.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         fontscore.setUseIntegerPositions(false);
         pixel = new Texture(Gdx.files.internal("1pix.png"));
-
+        endtable = new Texture(Gdx.files.internal("scoreback.png"));
+        endtabletext = new Texture(Gdx.files.internal("scoreback2.png"));
+        nomoread= new Texture(Gdx.files.internal("nomoread.png"));
+        endtableendless = new Texture(Gdx.files.internal("scorebackendless.png"));
+        fingers = new Texture(Gdx.files.internal("2fingers.png"));
+        fingers.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        endtableendless.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        nomoread.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        endtable.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        endtabletext.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         batch = new SpriteBatch();
         this.bg = bg;
         this.linesmall = linesmall;
+        fingerx=MathUtils.random(150,810);
+        fingery=MathUtils.random(100,440);
 
         for (int i = 0; i < effectquality; i++) {
             for (int j = 0; j < i * 2 + 3; j++) {
@@ -298,7 +319,7 @@ public class GameDrawer {
                 temp.effectline.getEmitters().first().getTint().setColors(colors);
                 temp.effectline.draw(batch);
 
-               // batch.setColor(1, 1, 1, 1);
+                // batch.setColor(1, 1, 1, 1);
             }
             batch.end();
         }
@@ -348,7 +369,7 @@ public class GameDrawer {
 
                 for (int i = 0; i < width / gap + 1; i++) {
                     Vector2 temp = new Vector2(dragstart.cpy().lerp(dragend, i * gap / width));
-                    Vector2 addvector = new Vector2(2 + j, 2 + j );
+                    Vector2 addvector = new Vector2(2 + j, 2 + j);
                     addvector.rotate(anglerotate + MathUtils.random(360f));
                     temp.add(addvector);
                     posdrags.add(temp);
@@ -399,14 +420,14 @@ public class GameDrawer {
             for (int j = 0; j < 5; j++) {
                 float width = dragstart.dst(dragend);
                 float anglerotate = dragend.cpy().sub(dragstart).angle();
-                float gap = MathUtils.random(60,90) + j*4;
+                float gap = MathUtils.random(60, 90) + j * 4;
                 MathUtils.random.setSeed((int) seedd + 131 * j);
                 int src = batch.getBlendSrcFunc();
                 int dst = batch.getBlendDstFunc();
 
                 if (quality) {
                     batch.setColor(HSV_to_RGB(8 * (j - 2) + hue,
-                            MathUtils.clamp(whitebalance * (150 + j * 30 - corel ), 0, 240), 240, ready / 121f));
+                            MathUtils.clamp(whitebalance * (150 + j * 30 - corel), 0, 240), 240, ready / 121f));
                     batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
                 } else {
                     batch.setColor(Color.WHITE.cpy().lerp(1f, 1f, 1f, 0f, MathUtils.clamp(corel / 121f, 0f, 1f)));
@@ -539,6 +560,10 @@ public class GameDrawer {
 
     }
 
+
+
+
+
     public int endScreen(int count, Music music, int a) {
 
         if (count > 60)
@@ -554,16 +579,84 @@ public class GameDrawer {
 
     }
 
-    public void drawEndScore() {
+    public void drawEndTable() {
+        if (quality2) {
+            batch.setColor(0f,0f,0f,0.9f);
+        } else {
+            batch.setColor(0f,0f,0f,0.9f);
+        }
+        batch.begin();
 
+        batch.draw(endtable,230,120,500,300);//300,200
+        if (quality2) {
 
+            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
+        } else {
+            batch.setColor(Color.WHITE);
+        }
+
+        batch.draw(endtabletext,230,120);
+        batch.end();
+    }
+    public void drawEndTableEndless() {
+        if (quality2) {
+            batch.setColor(0f,0f,0f,0.9f);
+        } else {
+            batch.setColor(0f,0f,0f,0.9f);
+        }
+        batch.begin();
+
+        batch.draw(endtable,230,120,500,300);//300,200
+        if (quality2) {
+
+            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
+        } else {
+            batch.setColor(Color.WHITE);
+        }
+
+        batch.draw(endtableendless,230,120);
+        batch.end();
+    }
+    public void drawNoMoreAds()
+    {
+        batch.begin();
+        if (quality2) {
+
+            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
+        } else {
+            batch.setColor(Color.WHITE);
+        }
+        batch.draw(nomoread,550,140,175,90);
+        batch.end();
+    }
+    public void draw2fingers() {
+        batch.begin();
+        if (quality2) {
+
+            batch.setColor(HSV_to_RGB(hue, whitebalance * 200, 240, 1f));
+        } else {
+            batch.setColor(Color.WHITE);
+        }
+        if (fingersize<0.4||fingersize>0.8)
+        {
+            fingersizechange*=-1;
+            if(fingersize>0.8)
+            {
+                fingerx=MathUtils.random(150,810);
+                fingery=MathUtils.random(100,440);
+            }
+        }
+        fingersize+=fingersizechange;
+
+        batch.draw(fingers,fingerx-fingersize*50f,fingery-fingersize*89f,fingersize*99f,fingersize*177f);
+        batch.end();
     }
 
     public Color HSV_to_RGB(float h, float s, float v, float alpha) {
         int r, g, b;
         int i;
         float f, p, q, t;
-        h = (h + 360) % 360;
+        h = (h + 3600) % 360;
         s = (float) Math.max(0.0, Math.min(240.0, s));
         v = (float) Math.max(0.0, Math.min(240.0, v));
         s /= 240f;
@@ -613,4 +706,6 @@ public class GameDrawer {
     public void dispose() {
 
     }
+
+
 }
