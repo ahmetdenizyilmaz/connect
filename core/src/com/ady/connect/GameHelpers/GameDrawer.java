@@ -166,6 +166,7 @@ public class GameDrawer {
         } else {
             batch.setColor(Color.BLACK);
         }
+        batch.setColor(HSV_to_RGB(((hue+180) % 360), whitebalance * 240f, 35, 1f));
         batch.begin();
         batch.draw(bg, 0, 0, 960f, 540f);
         batch.end();

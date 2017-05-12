@@ -62,8 +62,8 @@ public class SplashScreen implements Screen {
             if (!ply.isSignedIn()) {
                 System.out.println("Thereisaninternet");
                 if (!signattemp) {
-                    signattemp = true;
-                    ply.signIn();
+                    //signattemp = true;
+                   // ply.signIn();
                 }
             }
         }

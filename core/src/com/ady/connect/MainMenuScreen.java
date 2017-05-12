@@ -311,10 +311,11 @@ public class MainMenuScreen implements Screen {
         font.getData().setScale(1f);
         font2.getData().setScale(1f);
         glyp = new GlyphLayout(font, string);
-        font.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue - 20, 240, 240, 1.5f - alphabrain));
-        font.draw(batch, string, 479 - glyp.width / 2, 450 + glyp.height / 2);
-        font.draw(batch, string, 481 - glyp.width / 2, 450 + glyp.height / 2);
-        font2.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 150, 240, 0.5f + alphabrain));
+        font.setColor(Gamedrawer.HSV_to_RGB((Gamedrawer.hue+180)%360 , 80, 240, alphabrain));
+       // font.setColor(Color.WHITE);
+        font.draw(batch, string, 480 - glyp.width / 2, 450 + glyp.height / 2);
+        //font.draw(batch, string, 481 - glyp.width / 2, 450 + glyp.height / 2);
+        font2.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
 
         font2.draw(batch, string, 480 - glyp.width / 2, 450 + glyp.height / 2);
 
@@ -335,15 +336,14 @@ public class MainMenuScreen implements Screen {
             glyp = new GlyphLayout(font2, getStrings()[1][stringchange % 3]);
             font2.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 50, 240, alphabrain + 0.1f));
             font2.draw(batch, getStrings()[1][stringchange % 3], 480 - glyp.width / 2, 100 + glyp.height / 2);
-
             batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
             batch.draw(leaderboard, 100, 100, 150, 150);
             batch.end();
         }
         batch.begin();
         batch.setColor(Color.BLACK);
-        batch.draw(brainb, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
-                180 + plussize);
+       // batch.draw(brainb, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
+       //         180 + plussize);
         batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 240, 1f - alphabrain));
         batch.draw(brain, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
                 180 + plussize);
@@ -384,8 +384,8 @@ public class MainMenuScreen implements Screen {
         }
         batch.begin();
         batch.setColor(Color.BLACK);
-        batch.draw(clockb, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
-                200 + plussize);
+       // batch.draw(clockb, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
+       //         200 + plussize);
         batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 240, 1f - alphabrain));
         batch.draw(clock, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
@@ -463,8 +463,8 @@ public class MainMenuScreen implements Screen {
         batch.begin();
         batch.setColor(Color.BLACK);
 
-        batch.draw(optionsb, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
-                200 + plussize);
+       // batch.draw(optionsb, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
+      //          200 + plussize);
         batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueoptions, 240, 240, 1f - alphabrain));
         batch.draw(options, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
