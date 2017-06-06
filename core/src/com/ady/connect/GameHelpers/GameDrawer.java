@@ -90,7 +90,7 @@ public class GameDrawer {
         fingerx = MathUtils.random(150, 810);
         fingery = MathUtils.random(100, 440);
 
-        for (int i = 0; i < effectquality; i++) {
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < i * 2 + 3; j++) {
                 BgElement temp = new BgElement(0, j * (360f / (i * 2 + 3)), 80 * i + 64f, 50f * i, 30f, (i + 5f) / 60,
                         (i + 5f) / 100);
@@ -148,9 +148,7 @@ public class GameDrawer {
             sprbg.setTexture(menutex);
 
         }
-        if (quality) {
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
-        }
+
         if (speed > 5)
             speed -= 0.01f;
 
@@ -166,19 +164,23 @@ public class GameDrawer {
         } else {
             batch.setColor(Color.BLACK);
         }
-        batch.setColor(HSV_to_RGB(((hue+180) % 360), whitebalance * 240f, 35, 1f));
+        batch.setColor(HSV_to_RGB(((hue+240) % 360), whitebalance * 20f, 30, 1f));
+       //batch.setColor(Color.WHITE);
         batch.begin();
         batch.draw(bg, 0, 0, 960f, 540f);
         batch.end();
-
+        if (quality) {
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+        }
         batch.setColor(Color.WHITE);
         if (quality2) {
             // sprites
             if (quality) {
-                sprbg.setColor(HSV_to_RGB((hue) % 360, whitebalance * 160f, 25, 0.5f));
+                sprbg.setColor(HSV_to_RGB((hue) % 360, whitebalance * 160f, 65, 0.05f));
             } else {
-                sprbg.setColor(HSV_to_RGB((hue) % 360, whitebalance * 160f, 85, 0.2f));
+                sprbg.setColor(HSV_to_RGB((hue) % 360, whitebalance * 160f, 240, 0.03f));
             }
+
             batch.begin();
 
             for (int i = 0; i < bgelements.size; i++) {
@@ -191,11 +193,7 @@ public class GameDrawer {
                 sprbg.draw(batch);
 
             }
-            if (quality) {
-                sprbg.setColor(HSV_to_RGB((hue + 20) % 360, whitebalance * 200f, 25, 0.5f));
-            } else {
-                sprbg.setColor(HSV_to_RGB((hue + 10) % 360, whitebalance * 200f, 85, 0.2f));
-            }
+
             for (int i = 0; i < bgelements.size; i++) {
 
                 BgElement temp = bgelements.get(i);

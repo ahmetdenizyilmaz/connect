@@ -304,15 +304,15 @@ public class MainMenuScreen implements Screen {
         // Gamedrawer.sizesprite = 2f+alphabrain*2;
 
         batch.begin();
-        font.getData().setScale(1f + alphabrain / 1.5f);
+        //font.getData().setScale(1f + alphabrain / 1.5f);
         GlyphLayout glyp = new GlyphLayout(font, string);
-        font.setColor(Color.BLACK);
-        font.draw(batch, string, 480 - glyp.width / 2, 450 + glyp.height / 2 + alphabrain * 30 * randomsign);
+        //font.setColor(Color.BLACK);
+        //font.draw(batch, string, 480 - glyp.width / 2, 450 + glyp.height / 2 + alphabrain * 30 * randomsign);
         font.getData().setScale(1f);
         font2.getData().setScale(1f);
         glyp = new GlyphLayout(font, string);
-        font.setColor(Gamedrawer.HSV_to_RGB((Gamedrawer.hue+180)%360 , 80, 240, alphabrain));
-       // font.setColor(Color.WHITE);
+        font.setColor(Gamedrawer.HSV_to_RGB((Gamedrawer.hue + 180) % 360, 80, 240, alphabrain));
+        // font.setColor(Color.WHITE);
         font.draw(batch, string, 480 - glyp.width / 2, 450 + glyp.height / 2);
         //font.draw(batch, string, 481 - glyp.width / 2, 450 + glyp.height / 2);
         font2.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
@@ -325,9 +325,23 @@ public class MainMenuScreen implements Screen {
         if (rotationicon == 1) {
             huebrain = 20;
             plussize = 0f;
+            batch.begin();
+            String temp="endless mode";
+            font.getData().setScale(0.3f);
+            glyp = new GlyphLayout(font, temp);
+            font.setColor(Color.WHITE);
+            font.draw(batch, temp,  iconpos[0].x - glyp.width / 2,  iconpos[0].y+70);
+            batch.end();
         } else if (rotationicon == 0) {
             huebrain = -20;
             plussize = 0f;
+            batch.begin();
+            String temp="endless mode";
+            font.getData().setScale(0.3f);
+            glyp = new GlyphLayout(font, temp);
+            font.setColor(Color.WHITE);
+            font.draw(batch, temp,  iconpos[0].x - glyp.width / 2,  iconpos[0].y+70);
+            batch.end();
         } else {
             plussize = 85f + plussizeinc * 30f;
 
@@ -342,20 +356,19 @@ public class MainMenuScreen implements Screen {
         }
         batch.begin();
         batch.setColor(Color.BLACK);
-       // batch.draw(brainb, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
-       //         180 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 240, 1f - alphabrain));
+        // batch.draw(brainb, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
+        //         180 + plussize);
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 200, 1f - alphabrain));
         batch.draw(brain, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
                 180 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 240, alphabrain));
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 200, alphabrain));
         batch.draw(braing, iconpos[0].x - 90 - plussize / 2f, iconpos[0].y - 90 - plussize / 2f, 180 + plussize,
                 180 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 200, 240, showplay));
-        if (rotationicon == 2) {
-            batch.draw(play, iconpos[0].x - 100, iconpos[0].y - 100, 200, 200);
-        }
+       // batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + huebrain, 240, 240, showplay));
+
         batch.end();
 
+        ;
         ///
         if (rotationicon == 1) {
             plussize = 100f;
@@ -366,9 +379,23 @@ public class MainMenuScreen implements Screen {
         if (rotationicon == 0) {
             hueclock = 20;
             plussize = 0;
+            batch.begin();
+            String temp="rush mode";
+            font.getData().setScale(0.3f);
+            glyp = new GlyphLayout(font, temp);
+            font.setColor(Color.WHITE);
+            font.draw(batch, temp, iconpos[1].x - glyp.width / 2, iconpos[1].y+80);
+            batch.end();
         } else if (rotationicon == 2) {
             hueclock = -20;
             plussize = 0;
+            batch.begin();
+            String temp="rush mode";
+            font.getData().setScale(0.3f);
+            glyp = new GlyphLayout(font, temp);
+            font.setColor(Color.WHITE);
+            font.draw(batch, temp,  iconpos[1].x - glyp.width / 2,  iconpos[1].y+80);
+            batch.end();
         } else {
             // High score
             plussize = 85f + plussizeinc * 30f;
@@ -381,21 +408,21 @@ public class MainMenuScreen implements Screen {
             batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
             batch.draw(leaderboard, 100, 100, 150, 150);
             batch.end();
+
         }
         batch.begin();
         batch.setColor(Color.BLACK);
-       // batch.draw(clockb, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
-       //         200 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 240, 1f - alphabrain));
+        // batch.draw(clockb, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
+        //         200 + plussize);
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 200, 1f - alphabrain));
         batch.draw(clock, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 240, alphabrain));
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 200, alphabrain));
         batch.draw(clockg, iconpos[1].x - 100 - plussize / 2f, iconpos[1].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 240, showplay));
-        if (rotationicon == 1) {
-            batch.draw(play, iconpos[1].x - 100, iconpos[1].y - 100, 200, 200);
-        }
+
+      //  batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueclock, 240, 240, showplay));
+
         batch.end();
         if (rotationicon == 0) {
             plussize = 100f;
@@ -406,8 +433,16 @@ public class MainMenuScreen implements Screen {
         float hueoptions = 0;
         if (rotationicon == 2) {
             hueoptions = 20;
+            batch.begin();
+            batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
+            batch.draw(play, 710, 100, 150, 150);
+            batch.end();
         } else if (rotationicon == 1) {
             hueoptions = -20;
+            batch.begin();
+            batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue, 240, 240, 1f));
+            batch.draw(play, 710, 100, 150, 150);
+            batch.end();
         } else {
 
             batch.begin();
@@ -463,16 +498,25 @@ public class MainMenuScreen implements Screen {
         batch.begin();
         batch.setColor(Color.BLACK);
 
-       // batch.draw(optionsb, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
-      //          200 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueoptions, 240, 240, 1f - alphabrain));
+        // batch.draw(optionsb, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
+        //          200 + plussize);
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueoptions, 240, 200, 1f - alphabrain));
         batch.draw(options, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
-        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueoptions, 240, 240, alphabrain));
+        batch.setColor(Gamedrawer.HSV_to_RGB(Gamedrawer.hue + hueoptions, 240, 200, alphabrain));
         batch.draw(optionsg, iconpos[2].x - 100 - plussize / 2f, iconpos[2].y - 100 - plussize / 2f, 200 + plussize,
                 200 + plussize);
         batch.end();
-
+    if(rotationicon!=0)
+    {
+        batch.begin();
+        String temp="options";
+        font.getData().setScale(0.3f);
+        glyp = new GlyphLayout(font, temp);
+        font.setColor(Color.WHITE);
+        font.draw(batch, temp, iconpos[2].x - glyp.width / 2, iconpos[2].y+80);
+        batch.end();
+    }
         if (Gdx.graphics.getFramesPerSecond() < 47 && Gamedrawer.sizesprite > 1f) {
             Gamedrawer.sizesprite -= 0.01f;
         } else if (Gdx.graphics.getFramesPerSecond() > 55 && Gamedrawer.sizesprite < 3f) {
@@ -530,13 +574,13 @@ public class MainMenuScreen implements Screen {
                     savegame.flush();
                 }
             } else if (rotationicon == 1) {
-                if (rect5.contains(pos.x, pos.y)) {
+                if (rect5.contains(pos.x, pos.y) || rect4.contains(pos.x,pos.y)) {
                     gotorush = true;
                 } else if (rect3.contains(pos.x, pos.y)) {
                     playServices.showScore();
                 }
             } else {
-                if (rect5.contains(pos.x, pos.y)) {
+                if (rect5.contains(pos.x, pos.y)|| rect4.contains(pos.x,pos.y)) {
                     gotoendless = true;
 
                 } else if (rect3.contains(pos.x, pos.y)) {
@@ -585,7 +629,14 @@ public class MainMenuScreen implements Screen {
             System.out.println(rotationicon);
         }
         for (int i = 0; i < 3; i++) {
-            iconpos[i].lerp(iconpos[(i + rotationicon) % 3 + 3], 0.2f);
+            if (iconpos[i].dst2(iconpos[(i + rotationicon) % 3 + 3]) > 16) {
+                System.out.println(" uzak");
+                iconpos[i].lerp(iconpos[(i + rotationicon) % 3 + 3], 0.3f);
+            }
+            else
+            {
+                iconpos[i].set(iconpos[(i + rotationicon) % 3 + 3]);
+            }
         }
 
         if (gotoendless) {
