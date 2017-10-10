@@ -1,0 +1,30 @@
+font.name=Nordica
+font.size=64
+font.bold=false
+font.italic=false
+font.gamma=1.8
+font.mono=false
+
+font2.file=C:\Users\ADY\Desktop\coolvetica rg.ttf
+font2.use=false
+
+pad.top=3
+pad.right=3
+pad.bottom=3
+pad.left=3
+pad.advance.x=-2
+pad.advance.y=-2
+
+glyph.native.rendering=false
+glyph.page.width=512
+glyph.page.height=256
+glyph.text=abcdefghijklmnopqrstuvwxyz\n1234567890 \n
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
+effect.Color=ffffff
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.DistanceFieldEffect
+effect.Color=ffffff
+effect.Scale=4
+effect.Spread=2.0
+

@@ -3,7 +3,7 @@ android {
         debug {
             keyAlias 'ady'
             keyPassword '12005828398'
-            storeFile file('C:/Users/ADY/Desktop/libgdx/Connect2/connectkey')
+            storeFile file('C:\\Users\\ADY\\Desktop\\libgdx\\boost.jks')
             storePassword '12005828398'
         }
     }
@@ -26,7 +26,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.ady.connect"
+        applicationId "com.ady.xpbooster"
         minSdkVersion 15
         targetSdkVersion 25
 
@@ -77,7 +77,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.ady.connect/com.ady.connect.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.ady.xpbooster/AndroidLauncher'
 }
 // sets up the Android Eclipse project, using the old Ant based build.
 eclipse {
