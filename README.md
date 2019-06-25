@@ -1,7 +1,7 @@
 # Connect OpenSource LibGDX game
 
 ![alt text](https://lh3.googleusercontent.com/1Qap05xGvR06jSCg1jm0-bbK6PPb2ls-nzRt93krztrxdjoZdPOy4nGOWui8kN16-Q=s180-rw)
-Connect Game
+#Connect Game
 
 https://play.google.com/store/apps/details?id=com.ady.connect
 
